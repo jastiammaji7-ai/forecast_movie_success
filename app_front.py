@@ -12,7 +12,7 @@ review = st.text_area("Paste a User Review")
 if st.button("Predict Success"):
     try:
         res = requests.post(
-            "http://127.0.0.1:8000/predict",  # change to Render URL after deploy
+            "https://forecast-movie-success.onrender.com/",  # change to Render URL after deploy
             json={"movie": movie, "review": review},
         )
         if res.status_code == 200:
@@ -26,3 +26,4 @@ if st.button("Predict Success"):
             st.error(f"Server returned error code: {res.status_code}")
     except Exception as e:
         st.error(f"❌ Could not connect to backend API. Error: {e}")
+
