@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+pydantic
+vaderSentiment
+streamlit
+requests
