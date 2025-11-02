@@ -19,7 +19,7 @@ class Review(BaseModel):
     movie: str
     review: str
 
-@app.get("/")
+@app.post("/")
 def home():
     return {"message": "Backend is running successfully"}
 
@@ -33,3 +33,4 @@ def predict_sentiment(data: Review):
         "prediction": label,
         "confidence": confidence
     }
+
