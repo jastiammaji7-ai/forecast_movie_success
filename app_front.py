@@ -12,18 +12,24 @@ review = st.text_area("Paste a User Review")
 if st.button("Predict Success"):
     try:
         res = requests.post(
-            "https://forecast-movie-success.onrender.com/",  # change to Render URL after deploy
+            "https://forecast-movie-success.onrender.com/predict",
             json={"movie": movie, "review": review},
+            timeout=10
         )
         if res.status_code == 200:
             result = res.json()
-            st.success(
-                f"**Movie:** {result['movie']}  \n"
-                f"**Prediction:** {result['prediction']}  \n"
-                f"**Confidence:** {result['confidence']}"
-            )
+            if all(k in result for k in ("movie", "prediction", "confidence")):
+                st.success(
+                    f"**Movie:** {result['movie']}  \n"
+                    f"**Prediction:** {result['prediction']}  \n"
+                    f"**Confidence:** {result['confidence']}"
+                )
+            else:
+                st.error(f"Unexpected response format: {result}")
         else:
             st.error(f"Server returned error code: {res.status_code}")
     except Exception as e:
         st.error(f"❌ Could not connect to backend API. Error: {e}")
+
+
 
